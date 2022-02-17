@@ -1,0 +1,8 @@
+import "child_process"::{ exec, spawn }
+
+task 'build', 'Builds all of the code, and type checks it with Flow!', (options) ->
+	exec 'coffee --bare --no-header --compile --output ./target/ ./src/'
+	exec 'npx flow' if options.flow? or yes
+
+task 'run', 'Runs all of the code!', (options) ->
+	spawn 'coffee', ['src/main.coffee'], stdio: 'inherit'
